@@ -38,9 +38,17 @@ class Model_welcome extends CI_Model {
 		return $r->result();
 	}
 
-		public function getCatModel($idInmobiliaria)
+		public function getCatModel()
 	{
 
+		$query=$this->db->query('	
+		SELECT idRepuesta,idPuente,idRespuestaEncuesta,
+		idInmobiliaria,idProyecto,idUser,idPais,fechaPuntos
+		FROM zz_glead_respuestas 
+		LIMIT 10'
+		);
+
+		return $query;
 	}
 
 

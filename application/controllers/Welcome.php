@@ -62,9 +62,8 @@ class Welcome extends CI_Controller {
 
 	switch ($_POST["idTipo"]) {
 		case 1:
-			//echo "***** Descarga de categorizados ***** <br>";
+	//echo "***** Descarga de categorizados ***** <br>";
 			descargaCategorizados();
-			//print_r($_POST);
 				break;
 		case 2:
         	echo "***** Descarga de Consultas ***** <br>";

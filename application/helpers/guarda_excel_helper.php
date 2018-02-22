@@ -1,17 +1,9 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 function descargaCategorizados(){
 
-$conexion=new mysqli("localhost","test","winston123456","res_gleads");
-
-
-   // $conexion = new mysqli('localhost','root','','test',3306);
-  if (mysqli_connect_errno()) {
-      printf("La conexión con el servidor de base de datos falló: %s\n", mysqli_connect_error());
-      exit();
-  }
-
-$conexion->set_charset("utf8"); 
+//$conexion->set_charset("utf8"); 
 
 date_default_timezone_set('America/Santiago');
 
@@ -26,12 +18,14 @@ $hoy = date("Y-m-d");
     ";
 
 
-  $resultado = $conexion->query($consulta);
-  if($resultado->num_rows > 0 ){
-            
+$CI =& get_instance();
+$CI->load->model('Model_welcome');
+$resultado = $CI->Model_welcome->getCatModel();
 
-    if (PHP_SAPI == 'cli')
-      die('Este archivo solo se puede ver desde un navegador web');
+//var_dump($var->result_array());
+
+
+  if($resultado->num_rows() > 0 ){
 
     /** Se agrega la libreria PHPExcel */
     require_once 'lib/PHPExcel/PHPExcel.php';
@@ -77,7 +71,7 @@ $objPHPExcel->setActiveSheetIndex(0)
     
     //Se agregan los datos al reporte
     $i = 4;
-    while ($fila = $resultado->fetch_array()) {
+   /* while ($fila = $resultado->result()->fetch_array()) {
 
       $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A'.$i,  $fila['idRepuesta'])
@@ -87,12 +81,25 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('E'.$i, ($fila['idProyecto']))
         ->setCellValue('F'.$i, ucfirst($fila['idUser']))
         ->setCellValue('G'.$i, ($fila['idPais']))
-            ->setCellValue('H'.$i, ($fila['fechaPuntos']));
- 
+        ->setCellValue('H'.$i, ($fila['fechaPuntos']));
       $i++;
-
-  
     }
+*/
+
+    foreach ($resultado->result() as $row)
+{
+
+     $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('A'.$i,  $row->idRepuesta)
+        ->setCellValue('B'.$i,  $row->idPuente)
+        ->setCellValue('C'.$i,  $row->idRespuestaEncuesta)
+        ->setCellValue('D'.$i,  $row->idInmobiliaria)
+        ->setCellValue('E'.$i,  $row->idProyecto)
+        ->setCellValue('F'.$i,  $row->idUser)
+        ->setCellValue('G'.$i,  $row->idPais)
+        ->setCellValue('H'.$i,  $row->fechaPuntos);
+     $i++;   
+}
 
     $estiloTituloReporte = array(
           'font' => array(
@@ -154,9 +161,12 @@ $objPHPExcel->setActiveSheetIndex(0)
             )
         ));
      
-    $objPHPExcel->getActiveSheet()->getStyle('A1:D1')->applyFromArray($estiloTituloReporte);
-    $objPHPExcel->getActiveSheet()->getStyle('A3:AM3')->applyFromArray($estiloTituloColumnas);    
-    //$objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A4:AM".($i-1));
+    $objPHPExcel->getActiveSheet()
+    ->getStyle('A1:D1')->applyFromArray($estiloTituloReporte);
+    $objPHPExcel->getActiveSheet()
+    ->getStyle('A3:AM3')->applyFromArray($estiloTituloColumnas);    
+
+
         
     for($i = 'A'; $i <= 'H'; $i++){
       $objPHPExcel->setActiveSheetIndex(0)      
@@ -174,15 +184,14 @@ $objPHPExcel->setActiveSheetIndex(0)
 
     // Se manda el archivo al navegador web, con el nombre que se indica (Excel2007)
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="Reporte_EURO('.$hoy.').xls"');
+    header('Content-Disposition: attachment;filename="Reporte_GLOBAL('.$hoy.').xls"');
     header('Cache-Control: max-age=0');
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
     $objWriter->save('php://output');
     exit;
     
-  }
-  else{
+  }else{
     print_r('No hay resultados para mostrar');
   }
 }

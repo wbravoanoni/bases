@@ -47,23 +47,29 @@ class Welcome extends CI_Controller {
 		if($_POST){
 			if(isset($_POST["idInmo"]) && isset($_POST["idProy"]) && isset($_POST["idTipo"]) && isset($_POST["fIni"]) && isset($_POST["fTer"])){
 
-				if($_POST["fIni"]< $_POST["fTer"]){
+					$idInmo  = $_POST["idInmo"];
+					$idProy  = $_POST["idProy"];
+					$tipo    = $_POST["idTipo"];
+					$fInicio = $_POST["fIni"];
+					$fFinal  = $_POST["fTer"];
+
+				if($fInicio< $fFinal){
 					//echo "fIni < fTer";
 				}else{
 					echo "fIni > fTer";
 					exit;
 				}
 
-				$data["idInmo"] = $_POST["idInmo"];
-				$data["idProy"] = $_POST["idProy"];
-				$data["idTipo"] = $_POST["idTipo"];
-				$data["fIni"]   = $_POST["fIni"];
-				$data["fTer"]   = $_POST["fTer"];
+				$data["idInmo"] = $idInmo;
+				$data["idProy"] = $idProy;
+				$data["idTipo"] = $tipo;
+				$data["fIni"]   = $fInicio;
+				$data["fTer"]   = $fFinal;
 
-	switch ($_POST["idTipo"]) {
+	switch ($tipo) {
 		case 1:
 	//echo "***** Descarga de categorizados ***** <br>";
-			descargaCategorizados();
+			descargaCategorizados($idInmo,$idProy,$fInicio,$fFinal);
 				break;
 		case 2:
         	echo "***** Descarga de Consultas ***** <br>";
@@ -88,6 +94,11 @@ class Welcome extends CI_Controller {
 			exit;
 		}
 	
+	}
+
+	public function prueba(){
+
+	descargaCategorizados();
 	}
 
 }

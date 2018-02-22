@@ -38,13 +38,16 @@ class Model_welcome extends CI_Model {
 		return $r->result();
 	}
 
-		public function getCatModel()
+		public function getCatModel($idInmo,$idProy,$fInicio,$fFinal)
 	{
 
 		$query=$this->db->query('	
 		SELECT idRepuesta,idPuente,idRespuestaEncuesta,
 		idInmobiliaria,idProyecto,idUser,idPais,fechaPuntos
 		FROM zz_glead_respuestas 
+		WHERE idInmobiliaria='.$idInmo.' 
+		AND idProyecto IN ('.$idProy.')
+		AND fechaPuntos BETWEEN "'.$fInicio.'" AND "'.$fFinal.'"
 		LIMIT 10'
 		);
 

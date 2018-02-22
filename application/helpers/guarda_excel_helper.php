@@ -1,33 +1,20 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+//defined('BASEPATH') OR exit('No direct script access allowed');
 
-function descargaCategorizados(){
-
-//$conexion->set_charset("utf8"); 
+function descargaCategorizados($idInmo,$idProy,$fInicio,$fFinal){
 
 date_default_timezone_set('America/Santiago');
 
-//$hoy = date("Y-m-d H:i:s");     
 $hoy = date("Y-m-d");   
-
-  $consulta = "
-    SELECT idRepuesta,idPuente,idRespuestaEncuesta,idInmobiliaria,
-    idProyecto,idUser,idPais,fechaPuntos
-    FROM zz_glead_respuestas 
-    LIMIT 10
-    ";
-
 
 $CI =& get_instance();
 $CI->load->model('Model_welcome');
-$resultado = $CI->Model_welcome->getCatModel();
-
-//var_dump($var->result_array());
+$resultado = $CI->Model_welcome->getCatModel($idInmo,$idProy,$fInicio,$fFinal);
 
 
   if($resultado->num_rows() > 0 ){
 
-    /** Se agrega la libreria PHPExcel */
+  //Se agrega la libreria PHPExcel */
     require_once 'lib/PHPExcel/PHPExcel.php';
 
     // Se crea el objeto PHPExcel
@@ -36,11 +23,11 @@ $resultado = $CI->Model_welcome->getCatModel();
     // Se asignan las propiedades del libro
     $objPHPExcel->getProperties()->setCreator("TGA") //Autor
                ->setLastModifiedBy("TGA") //Ultimo usuario que lo modificó
-               ->setTitle("Reporte Excel con PHP y MySQL")
+               ->setTitle("Reporte idInmobiliaria")
                ->setSubject("Reporte Excel con PHP y MySQL")
-               ->setDescription("Reporte EURO")
-               ->setKeywords("Reporte EURO")
-               ->setCategory("Reporte EURO");
+               ->setDescription("Reporte idInmobiliaria")
+               ->setKeywords("Reporte idInmobiliaria")
+               ->setCategory("Reporte idInmobiliaria");
 
     $tituloReporte = "Reporte Global";
     $titulosColumnas = array(
@@ -71,20 +58,6 @@ $objPHPExcel->setActiveSheetIndex(0)
     
     //Se agregan los datos al reporte
     $i = 4;
-   /* while ($fila = $resultado->result()->fetch_array()) {
-
-      $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('A'.$i,  $fila['idRepuesta'])
-        ->setCellValue('B'.$i,  $fila['idPuente'])
-        ->setCellValue('C'.$i,  $fila['idRespuestaEncuesta'])
-        ->setCellValue('D'.$i, $fila['idInmobiliaria'])
-        ->setCellValue('E'.$i, ($fila['idProyecto']))
-        ->setCellValue('F'.$i, ucfirst($fila['idUser']))
-        ->setCellValue('G'.$i, ($fila['idPais']))
-        ->setCellValue('H'.$i, ($fila['fechaPuntos']));
-      $i++;
-    }
-*/
 
     foreach ($resultado->result() as $row)
 {
@@ -183,10 +156,29 @@ $objPHPExcel->setActiveSheetIndex(0)
     $objPHPExcel->getActiveSheet(0)->freezePaneByColumnAndRow(0,4);
 
     // Se manda el archivo al navegador web, con el nombre que se indica (Excel2007)
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="Reporte_GLOBAL('.$hoy.').xls"');
-    header('Cache-Control: max-age=0');
 
+    // We'll be outputting an excel file 
+ //   header('Content-type: application/vnd.ms-excel'); // It will be called file.xls 
+   // header('Content-Disposition: attachment; filename="file.xls"'); // Write file to the browser 
+
+  header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+  header('Content-Disposition: attachment;filename="Reporte_GLOBAL('.$hoy.').xls"');
+  header('Cache-Control: max-age=0');
+
+//SET IN $ xlsName name de XLSX con extensión. Ejemplo: $ xlsName = 'teste.xlsx';
+/*$objPHPExcel = new PHPExcel(); 
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007'); 
+header('Content-Type: application/vnd.ms-excel'); 
+header('Content-Disposition: attachment;filename="'.$xlsName.'"'); 
+header('Cache-Control: max-age=0'); $objWriter->save('php://output');
+
+//SET IN $ xlsName name de XLS con extensión. Ejemplo: $ xlsName = 'teste.xls';
+$objPHPExcel = new PHPExcel(); 
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+header('Content-Type: application/vnd.ms-excel'); 
+header('Content-Disposition: attachment;filename="'.$xlsName.'"');
+header('Cache-Control: max-age=0'); $objWriter->save('php://output'); 
+*/
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
     $objWriter->save('php://output');
     exit;

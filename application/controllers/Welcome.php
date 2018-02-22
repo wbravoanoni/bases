@@ -7,6 +7,7 @@ class Welcome extends CI_Controller {
 {
 	parent::__construct();
 	$this->load->model('Model_welcome');
+	$this->load->helper('guarda_excel_helper');
 }
 
 	/**
@@ -47,7 +48,7 @@ class Welcome extends CI_Controller {
 			if(isset($_POST["idInmo"]) && isset($_POST["idProy"]) && isset($_POST["idTipo"]) && isset($_POST["fIni"]) && isset($_POST["fTer"])){
 
 				if($_POST["fIni"]< $_POST["fTer"]){
-					echo "fIni < fTer";
+					//echo "fIni < fTer";
 				}else{
 					echo "fIni > fTer";
 					exit;
@@ -61,9 +62,9 @@ class Welcome extends CI_Controller {
 
 	switch ($_POST["idTipo"]) {
 		case 1:
-			echo "***** Descarga de categorizados ***** <br>";
-			//echo json_encode($this->Model_welcome->getCatModel($data));
-			print_r($_POST);
+			//echo "***** Descarga de categorizados ***** <br>";
+			descargaCategorizados();
+			//print_r($_POST);
 				break;
 		case 2:
         	echo "***** Descarga de Consultas ***** <br>";
@@ -89,4 +90,5 @@ class Welcome extends CI_Controller {
 		}
 	
 	}
+
 }

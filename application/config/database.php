@@ -76,15 +76,15 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 
-	'hostname' => '54.176.79.99',
-	'username' => 'sith',
-	'password' => 'Rs_k37tmx8',
-	'database' => 'res_gleads',
-
-	//'hostname' => 'localhost',
-	//'username' => 'test',
-	//'password' => 'winston123456',
+	//'hostname' => '54.176.79.99',
+	//'username' => 'sith',
+	//'password' => 'Rs_k37tmx8',
 	//'database' => 'res_gleads',
+
+	'hostname' => 'localhost',
+	'username' => 'test',
+	'password' => 'winston123456',
+	'database' => 'res_gleads',
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

@@ -9,7 +9,7 @@ $hoy = date("Y-m-d");
 
 $CI =& get_instance();
 $CI->load->model('Model_welcome');
-$resultado = $CI->Model_welcome->getCatModel($idInmo,$idProy,$fInicio,$fFinal);
+$resultado = $CI->Model_welcome->getCatModelFull($idInmo,$idProy,$fInicio,$fFinal);
 
 
   if($resultado->num_rows() > 0 ){
@@ -32,13 +32,15 @@ $resultado = $CI->Model_welcome->getCatModel($idInmo,$idProy,$fInicio,$fFinal);
     $tituloReporte = "Reporte Global";
     $titulosColumnas = array(
 'idRepuesta',
-'idPuente',
-'idRespuestaEncuesta',
-'idInmobiliaria',
-'idProyecto',
-'idUser',
-'idPais',
-'fechaPuntos'
+'Inmobiliaria',
+'Proyecto',
+'FechaPuntos',
+'Intervalo',
+'Cliente',
+'Correo',
+'rut',
+'donde',
+'Mejor'
 );
     
 $objPHPExcel->setActiveSheetIndex(0)
@@ -52,8 +54,10 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('D3',  $titulosColumnas[3])
 ->setCellValue('E3',  $titulosColumnas[4])
 ->setCellValue('F3',  $titulosColumnas[5])
-->setCellValue('G3',  $titulosColumnas[6])             
-->setCellValue('H3',  $titulosColumnas[7]);
+->setCellValue('G3',  $titulosColumnas[6]) 
+->setCellValue('H3',  $titulosColumnas[7])    
+->setCellValue('I3',  $titulosColumnas[8])                
+->setCellValue('J3',  $titulosColumnas[9]);
            
     
     //Se agregan los datos al reporte
@@ -64,13 +68,15 @@ $objPHPExcel->setActiveSheetIndex(0)
 
      $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A'.$i,  $row->idRepuesta)
-        ->setCellValue('B'.$i,  $row->idPuente)
-        ->setCellValue('C'.$i,  $row->idRespuestaEncuesta)
-        ->setCellValue('D'.$i,  $row->idInmobiliaria)
-        ->setCellValue('E'.$i,  $row->idProyecto)
-        ->setCellValue('F'.$i,  $row->idUser)
-        ->setCellValue('G'.$i,  $row->idPais)
-        ->setCellValue('H'.$i,  $row->fechaPuntos);
+        ->setCellValue('B'.$i,  $row->nombre)
+        ->setCellValue('C'.$i,  $row->Proyecto)
+        ->setCellValue('D'.$i,  $row->FechaPuntos)
+        ->setCellValue('E'.$i,  $row->Intervalo)
+        ->setCellValue('F'.$i,  $row->Cliente)
+        ->setCellValue('G'.$i,  $row->Correo)
+        ->setCellValue('H'.$i,  $row->rut)
+        ->setCellValue('I'.$i,  $row->donde)
+        ->setCellValue('J'.$i,  $row->mejor);
      $i++;   
 }
 

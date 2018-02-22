@@ -54,6 +54,48 @@ class Model_welcome extends CI_Model {
 		return $query;
 	}
 
+	public function getCatModelFull($idInmo,$idProy,$fInicio,$fFinal){
+
+$query=$this->db->query('SELECT a.idRepuesta,d.nombre,b.nombreP as Proyecto,
+	date(a.fechaPuntos) as FechaPuntos, 
+	CASE
+		when a.Puntos BETWEEN 0 AND 25 then "0% - 25%" 
+		when a.Puntos BETWEEN 25.1 AND 35 then "25% - 35%"
+		when a.Puntos BETWEEN 35.1 AND 45 then "35% - 45%"
+		when a.Puntos BETWEEN 45.1 AND 50 then "45% - 50%"
+		when a.Puntos BETWEEN 50.1 AND 55 then "50% - 55%"
+		when a.Puntos BETWEEN 55.1 AND 65 then "55% - 65%"
+		when a.Puntos BETWEEN 65.1 AND 75 then "65% - 75%"
+		when a.Puntos BETWEEN 75.1 AND 100 then "75% - 100%" 
+		ELSE "null_Intervalo" END AS Intervalo,
+CONCAT(c.nombre," ",c.apellido) AS Cliente,  a.Correo, c.rut, a.donde,a.mejor
+FROM zz_glead_respuestas AS a
+LEFT JOIN zz_glead_proyectos as b on  a.idInmobiliaria = b.idInmobiliaria 
+AND a.idProyecto=b.idProyecto 
+left join zz_glead_datos_personas AS c ON a.Correo=c.mail AND 
+((c.idInmobiliaria = a.idInmobiliaria OR c.fechaIngreso = (SELECT MAX(z.fechaIngreso) 
+														   FROM zz_glead_datos_personas z
+														   WHERE z.mail=a.Correo)) OR c.idInmobiliaria = 0)
+LEFT JOIN zz_glead_inmobiliaria AS d  ON a.idInmobiliaria=d.idInmobiliaria
+LEFT JOIN app_user AS e ON a.idUser=e.idUser
+WHERE a.idInmobiliaria = '.$idInmo.'
+AND a.idProyecto IN ('.$idProy.')
+AND a.fechaPuntos NOT LIKE "%0000-00-00%"
+AND a.X1 NOT LIKE "%0%"
+AND a.prueba=0
+AND a.cancelada=0
+AND a.descarte=0
+AND b.estado = 1
+AND a.fechaPuntos >="'.$fInicio.'"
+AND a.fechaPuntos <="'.$fFinal.'"
+GROUP BY a.idRepuesta
+ORDER BY a.fechaPuntos ASC
+LIMIT 1000;');
+
+return $query;
+	
+	}
+
 
 }
 

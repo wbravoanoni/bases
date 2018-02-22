@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<select class="form-control" name="idTipo" id="tipoDescarga">
 		<option value="" selected disabled>Seleccione el tipo de base</option>
 		<option value="1">Categorizados</option>
-		<option value="2">Consultas</option>
+		<option value="2">Promesas</option>
 		<option value="3">Cotizaciones</option>
 	</select>
 </div>

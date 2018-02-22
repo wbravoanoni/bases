@@ -72,13 +72,13 @@ class Welcome extends CI_Controller {
 			descargaCategorizados($idInmo,$idProy,$fInicio,$fFinal);
 				break;
 		case 2:
-        	echo "***** Descarga de Consultas ***** <br>";
-        	print_r($_POST);
+        //	echo "***** Descarga de Promesas ***** <br>";
+        	descargaPromesa($idInmo,$idProy,$fInicio,$fFinal);
         		break;
         
         case 3:
-        	echo "***** Descarga de Cotizaciones ***** <br>";
-        	print_r($_POST);
+        	//echo "***** Descarga de Cotizaciones ***** <br>";
+        	descargaCotizaciones($idInmo,$idProy,$fInicio,$fFinal);
         		break;			
 				
 		default:

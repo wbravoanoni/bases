@@ -58,7 +58,7 @@ class Model_welcome extends CI_Model {
 
 $query=$this->db->query('
 
-						SELECT a.idRepuesta,d.nombre,b.nombreP as Proyecto,
+						SELECT a.idRepuesta,d.nombre,b.nombreP as Proyecto,d.nombre as Inmobiliaria,
 						date(a.fechaPuntos) as FechaPuntos, 
 						CASE
 						when a.Puntos BETWEEN 0 AND 25 then "0% - 25%" 

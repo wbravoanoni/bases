@@ -56,6 +56,12 @@ class Model_welcome extends CI_Model {
 
 	public function getCatModelFull($idInmo,$idProy,$fInicio,$fFinal){
 
+		if($fInicio==$fFinal){
+			$filtroFecha=' AND a.fechaPuntos like "'.$fInicio.'%" ';
+		}else{
+			$filtroFecha=' AND a.fechaPuntos >="'.$fInicio.'" AND a.fechaPuntos <="'.$fFinal.'" ';
+		}
+
 $query=$this->db->query('
 
 						SELECT a.idRepuesta,d.nombre,b.nombreP as Proyecto,d.nombre as Inmobiliaria,
@@ -88,11 +94,10 @@ $query=$this->db->query('
 						AND a.cancelada=0
 						AND a.descarte=0
 						AND b.estado = 1
-						AND a.fechaPuntos >="'.$fInicio.'"
-						AND a.fechaPuntos <="'.$fFinal.'"
+					    '.$filtroFecha.'
 						GROUP BY a.idRepuesta
 						ORDER BY a.fechaPuntos ASC
-						LIMIT 2000;');
+						LIMIT 6000;');
 
 								return $query;
 	

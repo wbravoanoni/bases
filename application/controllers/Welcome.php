@@ -53,11 +53,12 @@ class Welcome extends CI_Controller {
 					$fInicio = $_POST["fIni"];
 					$fFinal  = $_POST["fTer"];
 
-				if($fInicio< $fFinal){
-					//echo "fIni < fTer";
-				}else{
-					echo "fIni > fTer";
+				if($fInicio >  $fFinal){
+						echo "fIni > fTer";
 					exit;
+				
+				}else{
+					//echo "fIni < fTer";
 				}
 
 				$data["idInmo"] = $idInmo;

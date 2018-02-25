@@ -245,7 +245,7 @@ $query=$this->db->query("
 			FROM zz_glead_gestion_pro_master AS a
 			LEFT JOIN zz_glead_vendedor_categoriza AS b 
 			ON b.idEmail_unico = a.idEmail_unico
-			AND a.idInmobilsssiaria = b.idInmobiliaria
+			AND a.idInmobiliaria = b.idInmobiliaria
 			LEFT JOIN zz_glead_gestion_pro_opcion c 
 			ON c.idOpcion = a.idOpcion
 			AND (c.catCotCon = 0 OR c.catCotCon = a.tipo)

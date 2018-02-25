@@ -257,7 +257,6 @@ $query=$this->db->query("
 			AND a.proyectos = f.idProyecto
 			LEFT JOIN app_user AS d ON a.idUser = d.idUser
 			WHERE a.idInmobiliaria =".$idInmo."
-			AND a.idProyecto IN (".$idProy.")
 			AND f.estado = 1 
 			".$filtroFecha."
 			AND a.prueba = 0

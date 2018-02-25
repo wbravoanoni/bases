@@ -279,3 +279,78 @@ $query=$this->db->query("
 
 
 
+SELECT 
+a.idGestionProMaster,
+b.idRepuesta,
+e.nombre as Inmobiliaria,
+a.tipo,
+concat(i.Nombre, " ", i.Apellido) AS Ejecutivo,
+CASE
+WHEN a.typeAction = 0 THEN 'Gestiones'
+WHEN a.typeAction = 1 THEN 'Agenda'
+WHEN a.typeAction = 2 THEN 'Asignación'
+WHEN a.typeAction = 3 THEN 'Referencia'
+WHEN a.typeAction = 4 THEN 'Reserva'
+WHEN a.typeAction = 5 THEN 'Categorización' ELSE 'Null' END as TipoDeAcción,
+a.idOpcion,
+a.opcion,
+a.email,
+concat(h.nombre, " ", h.apellido) AS Cliente,
+h.rut,
+date(a.fecha) as FechaGestion,
+date(b.fechaPuntos) as fechapuntos,
+DATEDIFF(a.fecha, b.fechaPuntos) AS Dif,
+CASE
+WHEN b.puntos BETWEEN 0 AND 25 THEN	'0% - 25%'
+WHEN b.puntos BETWEEN 25.1 AND 35 THEN 	'25% - 35%'
+WHEN b.puntos BETWEEN 35.1 AND 45 THEN 	'35% - 45%'
+WHEN b.puntos BETWEEN 45.1 AND 50 THEN 	'45% - 50%'
+WHEN b.puntos BETWEEN 50.1 AND 55 THEN 	'50% - 55%'
+WHEN b.puntos BETWEEN 55.1 AND 65 THEN 	'55% - 65%'
+WHEN b.puntos BETWEEN 65.1 AND 75 THEN 	'65% - 75%'
+WHEN b.puntos BETWEEN 75.1 AND 100 THEN 	'75% - 100%' ELSE 	'null_Intervalo' END AS Intervalo,
+f.nombreP as Proyecto,
+b.donde,
+a.principal,
+g.portal, 
+g.dondeviene,
+j.donde as Consulta,
+g.programa,
+a.comentario
+FROM  zz_glead_gestion_pro_master  as a
+LEFT JOIN zz_glead_respuestas as b ON a.idEmail_unico=b.idEmail_unico
+AND a.idInmobiliaria=b.idInmobiliaria
+LEFT JOIN zz_glead_gestion_pro_opcion c ON c.idOpcion = a.idOpcion 
+AND (c.catCotCon = 0 OR c.catCotCon = a.tipo)
+AND a.idOpcion=c.idOpcion
+LEFT JOIN zz_glead_inmobiliaria as e  on a.idInmobiliaria=e.idInmobiliaria
+LEFT JOIN zz_glead_proyectos  as f ON a.idInmobiliaria = f.idInmobiliaria 
+AND a.proyectos = f.idProyecto 
+LEFT JOIN zz_glead_datos_personas h ON a.idEmail_unico = h.idEmail_unico
+AND ((h.idInmobiliaria = a.idInmobiliaria OR h.fechaIngreso = ( SELECT MAX(z.fechaIngreso) FROM zz_glead_datos_personas z
+			WHERE z.mail = a.email )) OR h.idInmobiliaria = 0)
+LEFT JOIN zz_glead_vendedor_categoriza as g ON a.idEmail_unico=g.idEmail_unico
+AND a.idInmobiliaria=g.idInmobiliaria
+LEFT JOIN app_user i ON a.idUser = i.idUser
+AND a.idInmobiliaria = i.idempresa
+LEFT JOIN zz_glead_vendedor_consulta as j on a.idEmail_unico=j.idEmail_unico
+AND a.idInmobiliaria=j.idInmobiliaria
+WHERE a.idInmobiliaria in (70)
+AND a.cancelada = 0
+AND f.estado = 1 
+AND b.cancelada = 0
+AND a.prueba = 0
+AND b.prueba = 0
+AND a.descarte = 0
+AND b.descarte = 0
+AND year(a.fecha)=2018
+AND year(b.fechaPuntos)=2018
+AND a.fecha > b.fechaPuntos 
+AND a.fecha>='2018-01-08'
+AND a.fecha<='2018-01-14'
+AND b.fechaPuntos >='2018-01-08'
+AND b.fechaPuntos <='2018-01-14'
+GROUP BY a.idGestionProMaster
+ORDER BY a.idinmobiliaria ASC;
+
+

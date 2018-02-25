@@ -237,9 +237,9 @@ $query=$this->db->query("
 			WHEN a.typeAction = 3 THEN 	'Referencia'
 			WHEN a.typeAction = 4 THEN 	'Reserva'
 			WHEN a.typeAction = 5 THEN 	'Categorización' 
-			ELSE 	'Null' END AS TipoDeAcción,
+			ELSE 	'Null' END AS TipoDeAccion,
 			c.opcion,a.email,b.nombre AS Cliente,b.rut,
-			b.fono,a.proyectos AS IdProyectos,
+			b.fono,a.proyectos AS idProyectos,
 			f.nombreP AS Proyecto,b.portal,
 			b.dondeviene,a.comentario
 			FROM zz_glead_gestion_pro_master AS a

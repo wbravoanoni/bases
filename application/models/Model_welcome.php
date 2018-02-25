@@ -135,6 +135,11 @@ $query=$this->db->query("
 
 		public function getCot($idInmo,$idProy,$fInicio,$fFinal){
 
+if($fInicio==$fFinal){
+			$filtroFecha=' AND a.fechaCotizacion = "'.$fInicio.'%" ';
+		}else{
+			$filtroFecha=' AND a.fechaCotizacion >="'.$fInicio.'" AND a.fechaCotizacion <="'.$fFinal.'" ';
+		}
 
 $query=$this->db->query("
 					SELECT a.idCategorizar, c.nombre as Inmobiliaria, a.idProyecto, b.nombreP as Proyecto, a.fechaCotizacion as FechaCotizacion,
@@ -148,8 +153,7 @@ $query=$this->db->query("
 					AND a.idProyecto IN (".$idProy.")
 					and a.email not LIKE '%prueba'
 					AND b.estado=1
-					and a.fechaCotizacion >='".$fInicio."'
-					and a.fechaCotizacion <='".$fFinal."'
+					".$filtroFecha."
 					AND a.prueba=0
 					AND a.cancelada=0
 					AND a.descarte=0

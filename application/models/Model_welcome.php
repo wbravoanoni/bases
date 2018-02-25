@@ -105,6 +105,11 @@ $query=$this->db->query('
 
 	public function getPromesas($idInmo,$idProy,$fInicio,$fFinal){
 
+if($fInicio==$fFinal){
+			$filtroFecha=' AND a.fechaGuardado like "'.$fInicio.'%" ';
+		}else{
+			$filtroFecha=' AND a.fechaGuardado >="'.$fInicio.'" AND a.fechaGuardado <="'.$fFinal.'" ';
+		}
 
 $query=$this->db->query("
 					SELECT 
@@ -120,14 +125,13 @@ $query=$this->db->query("
 					WHERE a.idInmobiliaria =".$idInmo."
 					AND a.idProyecto IN (".$idProy.")
 					AND c.estado=1
-					AND a.fechaGuardado >= '".$fInicio."'
-					AND a.fechaGuardado <= '".$fFinal."'
+					".$filtroFecha."
 					AND a.cancelada = 0
 					AND a.prueba=0
 					AND a.descarte=0
 					GROUP BY idPromesaIn
 					ORDER BY a.fechaPromesa ASC
-					LIMIT 2000
+					LIMIT 6000
 					");
 
 								return $query;
@@ -136,7 +140,7 @@ $query=$this->db->query("
 		public function getCot($idInmo,$idProy,$fInicio,$fFinal){
 
 if($fInicio==$fFinal){
-			$filtroFecha=' AND a.fechaCotizacion = "'.$fInicio.'%" ';
+			$filtroFecha=' AND a.fechaCotizacion = "'.$fInicio.'" ';
 		}else{
 			$filtroFecha=' AND a.fechaCotizacion >="'.$fInicio.'" AND a.fechaCotizacion <="'.$fFinal.'" ';
 		}
@@ -160,7 +164,7 @@ $query=$this->db->query("
 					AND b.idProyecto IS NOT NULL
 					GROUP BY a.idCategorizar
 					ORDER BY a.fechaCotizacion ASC
-					LIMIT 2000");
+					LIMIT 6000");
 
 
 							return $query;

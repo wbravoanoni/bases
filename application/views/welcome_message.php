@@ -1,48 +1,15 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
 
+	<title>Descarga de reportes G-Leads</title>
 	<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<style>
-
-	#fondo_carga{
-		background-color: gray;
-		opacity: 0.5;
-		width:100%;
-		height:1000px;
-		position: absolute;
-		margin-left:auto;
-		margin-right:auto;
-		left:0;
-		right:0;
-		top:0;
-		z-index: 990;
-	}
-
-	#icono_carga{
-		background:url(img/25.gif) no-repeat center center;
-		position: absolute;
-		width:500px;
-		height:500px;
-		margin-left:auto;
-		margin-right:auto;
-		left:0;
-		right:0;
-		z-index: 999;
-	}
-
-		.btnEnviar{
-	padding-top: 20px;
-	}
-
-
-</style>
+<link rel="stylesheet" href="<?php echo base_url()?>css/style.css">
+<link rel="icon" href="<?php echo base_url()?>img/ico-gl.png" type="image/x-icon">
 
 </head>
 
@@ -52,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div id="icono_carga"></div>
 </div>
 
-<h1 class="text-center">Descarga</h1>
+<h1 id="tituloPrincipal" class="text-center">Descarga de reportes G-Leads</h1>
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">

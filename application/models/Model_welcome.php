@@ -214,12 +214,12 @@ $query=$this->db->query("
 			public function getGestCot($idInmo,$idProy,$fInicio,$fFinal){
 
 if($fInicio==$fFinal){
-$filtroFecha=' AND a.fecha like "'.$fInicio.'%" 
+$filtroFecha='  AND a.fecha like "'.$fInicio.'%" 
  				AND b.fechaCotizacion like "'.$fInicio.'%" ';
 }else{
 $filtroFecha=' AND a.fecha >="'.$fInicio.'" 
-			   AND b.fechaCotizacion <="'.$fFinal.'"
-			   AND a.fecha >="'.$fInicio.'" 
+			   AND a.fecha <="'.$fFinal.'"
+			   AND b.fechaCotizacion >="'.$fInicio.'" 
 			   AND b.fechaCotizacion <="'.$fFinal.'" ';
 		}
 

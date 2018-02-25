@@ -279,12 +279,12 @@ $query=$this->db->query("
 
 if($fInicio==$fFinal){
 $filtroFecha='  AND a.fecha like "'.$fInicio.'%" 
- 				AND b.fechaCotizacion like "'.$fInicio.'%" ';
+ 				AND b.fechaPuntos like "'.$fInicio.'%" ';
 }else{
 $filtroFecha=' AND a.fecha >="'.$fInicio.'" 
 			   AND a.fecha <="'.$fFinal.'"
-			   AND b.fechaCotizacion >="'.$fInicio.'" 
-			   AND b.fechaCotizacion <="'.$fFinal.'" ';
+			   AND b.fechaPuntos >="'.$fInicio.'" 
+			   AND b.fechaPuntos <="'.$fFinal.'" ';
 		}
 
 $query=$this->db->query("

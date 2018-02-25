@@ -1286,7 +1286,7 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
     $objPHPExcel->setActiveSheetIndex(0);
 
   header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-  header('Content-Disposition: attachment;filename="gestionesCot'.$inmobiliaria.'_'.$fInicio.'_'.$fFinal.'.xls"');
+  header('Content-Disposition: attachment;filename="gestionesCot_'.$inmobiliaria.'_'.$fInicio.'_'.$fFinal.'.xls"');
   header('Cache-Control: max-age=0');
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');

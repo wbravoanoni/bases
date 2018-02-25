@@ -1552,12 +1552,12 @@ $objDrawing->setCoordinates('C3');
 $objDrawing->setHeight(55); // logo height
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
         
-    for($i = 'A'; $i <= 'S'; $i++){
+    for($i = 'A'; $i <= 'W'; $i++){
       $objPHPExcel->setActiveSheetIndex(0)      
         ->getColumnDimension($i)->setAutoSize(TRUE);
     }
     
-    $objPHPExcel->getActiveSheet()->setTitle('Gestiones Cot');
+    $objPHPExcel->getActiveSheet()->setTitle('Gestiones Cat');
     $objPHPExcel->setActiveSheetIndex(0);
 
   header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

@@ -119,6 +119,7 @@ $query=$this->db->query("
 					FROM zz_glead_promesa as a
 					left join zz_glead_vendedor_categoriza b on a.email=b.email
 					LEFT JOIN zz_glead_proyectos c on a.idProyecto=c.idProyecto
+					LEFT JOIN zz_glead_inmobiliaria e on a.idInmobiliaria=e.idInmobiliaria
 					AND a.idInmobiliaria=c.idInmobiliaria
 					LEFT JOIN app_user d on a.idUser=d.idUser
 					AND a.idInmobiliaria=d.idempresa

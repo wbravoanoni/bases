@@ -171,6 +171,80 @@ $query=$this->db->query("
 							return $query;
 	}
 
+		public function getPromesas($idInmo,$idProy,$fInicio,$fFinal){
+
+if($fInicio==$fFinal){
+			$filtroFecha=' AND a.fechaGuardado like "'.$fInicio.'%" ';
+		}else{
+			$filtroFecha=' AND a.fechaGuardado >="'.$fInicio.'" AND a.fechaGuardado <="'.$fFinal.'" ';
+		}
+
+$query=$this->db->query("
+					SELECT 
+					a.idPromesaIn, e.nombre as Inmobiliaria,
+					a.idInmobiliaria,a.idUser, concat(d.Nombre,' ',d.Apellido) as ejecutivo, a.email,b.nombre,a.fechaPromesa, 
+					a.fechaGuardado,a.idProyecto, c.nombreP, a.programa,a.donde
+					FROM zz_glead_promesa as a
+					left join zz_glead_vendedor_categoriza b on a.email=b.email
+					LEFT JOIN zz_glead_proyectos c on a.idProyecto=c.idProyecto
+					LEFT JOIN zz_glead_inmobiliaria e on a.idInmobiliaria=e.idInmobiliaria
+					AND a.idInmobiliaria=c.idInmobiliaria
+					LEFT JOIN app_user d on a.idUser=d.idUser
+					AND a.idInmobiliaria=d.idempresa
+					WHERE a.idInmobiliaria =".$idInmo."
+					AND a.idProyecto IN (".$idProy.")
+					AND c.estado=1
+					".$filtroFecha."
+					AND a.cancelada = 0
+					AND a.prueba=0
+					AND a.descarte=0
+					GROUP BY idPromesaIn
+					ORDER BY a.fechaPromesa ASC
+					LIMIT 6000
+					");
+
+								return $query;
+	}
+
+		public function getConsultas($idInmo,$idProy,$fInicio,$fFinal){
+
+if($fInicio==$fFinal){
+			$filtroFecha=' AND a.fecha like "'.$fInicio.'%" ';
+		}else{
+			$filtroFecha=' AND a.fecha >="'.$fInicio.'" AND a.fecha <="'.$fFinal.'" ';
+		}
+
+$query=$this->db->query("
+			SELECT  
+			a.idConsultas,a.idInmobiliaria,
+			d.nombreMin as Inmobiliaria,
+			date(a.fecha) as FechaConsulta, b.NombreM as Proyecto, 
+			a.nombre as Cliente, a.email,a.fono, a.rut, a.donde,
+			 a.estado, a.mensaje
+			FROM zz_glead_vendedor_consulta as a
+			LEFT JOIN zz_glead_proyectos as b on a.idProyecto=b.idProyecto
+			LEFT JOIN app_user as c on a.idUser=c.idUser
+			LEFT JOIN zz_glead_inmobiliaria as d  on a.idInmobiliaria=d.idInmobiliaria
+			LEFT JOIN zz_glead_datos_personas as e on a.email=e.mail 
+			AND ((e.idInmobiliaria = a.idInmobiliaria 
+			OR e.fechaIngreso = (SELECT MAX(z.fechaIngreso) 
+			FROM zz_glead_datos_personas z
+			WHERE z.mail=a.email)) OR e.idInmobiliaria = 0)
+			WHERE a.idInmobiliaria =".$idInmo."
+			AND a.idProyecto IN (".$idProy.")
+			and a.email not LIKE '%prueba%'
+			AND a.prueba=0
+			AND a.cancelada=0
+			AND a.descarte=0
+			".$filtroFecha."
+			GROUP BY a.idConsultas
+			ORDER BY a.fecha ASC
+			LIMIT 6000
+			");
+
+				return $query;
+	}
+
 
 }
 

@@ -80,8 +80,13 @@ class Welcome extends CI_Controller {
         case 3:
         	//echo "***** Descarga de Cotizaciones ***** <br>";
         	descargaCotizaciones($idInmo,$idProy,$fInicio,$fFinal);
-        		break;			
-				
+        		break;
+
+		case 4:
+			//	echo "***** Descarga de Consultas ***** <br>";
+			descargaConsultas($idInmo,$idProy,$fInicio,$fFinal);
+		break;
+        
 		default:
 			exit;
 				break;

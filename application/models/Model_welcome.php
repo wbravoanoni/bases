@@ -301,7 +301,7 @@ $query=$this->db->query("
 				WHEN a.typeAction = 4 THEN 'Reserva'
 				WHEN a.typeAction = 5 THEN 'Categorización' 
 				ELSE 'Null' END as TipoDeAccion,
-				a.idOpcion,a.opcion,a.email,
+				a.idOpcion,c.opcion,a.email,
 				concat(h.nombre, ' ', h.apellido) AS Cliente,
 				h.rut,
 				date(a.fecha) as FechaGestion,

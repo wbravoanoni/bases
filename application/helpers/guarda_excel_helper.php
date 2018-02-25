@@ -706,16 +706,16 @@ $inmobiliaria=$row->Inmobiliaria;
       
 
     $objPHPExcel->getActiveSheet()
-    ->getStyle('A1:J12')->applyFromArray($estiloTituloReporte);
+    ->getStyle('A1:N12')->applyFromArray($estiloTituloReporte);
     $objPHPExcel->getActiveSheet()
-    ->getStyle('A13:J13')->applyFromArray($estiloTituloColumnas);  
+    ->getStyle('A13:N13')->applyFromArray($estiloTituloColumnas);  
     $objPHPExcel->getActiveSheet()
     ->getStyle('F5:F8')->applyFromArray($titulogleads);  
       $objPHPExcel->getActiveSheet()
     ->getStyle('F4')->applyFromArray($titulogleadsNegritas);    
 
      $objPHPExcel->getActiveSheet()
-    ->getStyle('A14:J'.--$i.'')->applyFromArray($todoContenido);   
+    ->getStyle('A14:N'.--$i.'')->applyFromArray($todoContenido);   
 
 
 //imagen

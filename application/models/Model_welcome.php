@@ -211,58 +211,72 @@ $query=$this->db->query("
 	}
 
 
+			public function getGestCot($idInmo,$idProy,$fInicio,$fFinal){
+
+if($fInicio==$fFinal){
+$filtroFecha=' AND a.fecha like "'.$fInicio.'%" 
+ 				AND a.fechaCotizacion like "'.$fInicio.'%" ';
+}else{
+$filtroFecha=' AND a.fecha >="'.$fInicio.'" 
+			   AND a.fechaCotizacion <="'.$fFinal.'"
+			   AND a.fecha >="'.$fInicio.'" 
+			   AND a.fechaCotizacion <="'.$fFinal.'" ';
+		}
+
+$query=$this->db->query("
+			SELECT
+			a.idGestionProMaster,b.idCategorizar,
+			e.nombre AS Inmobiliaria,
+			concat(d.Nombre, ' ', d.Apellido) AS Ejecutivo,
+			date(a.fecha) AS FechaGestion,b.fechacotizacion,
+			DATEDIFF(a.fecha, b.fechaCotizacion) AS Dif,a.tipo,
+			CASE 
+			WHEN a.typeAction = 0 THEN 	'Gestiones'
+			WHEN a.typeAction = 1 THEN 	'Agenda'
+			WHEN a.typeAction = 2 THEN 	'Asignación'
+			WHEN a.typeAction = 3 THEN 	'Referencia'
+			WHEN a.typeAction = 4 THEN 	'Reserva'
+			WHEN a.typeAction = 5 THEN 	'Categorización' 
+			ELSE 	'Null' END AS TipoDeAcción,
+			c.opcion,a.email,b.nombre AS Cliente,b.rut,
+			b.fono,a.proyectos AS IdProyectos,
+			f.nombreP AS Proyecto,b.portal,
+			b.dondeviene,a.comentario
+			FROM zz_glead_gestion_pro_master AS a
+			LEFT JOIN zz_glead_vendedor_categoriza AS b 
+			ON b.idEmail_unico = a.idEmail_unico
+			AND a.idInmobilsssiaria = b.idInmobiliaria
+			LEFT JOIN zz_glead_gestion_pro_opcion c 
+			ON c.idOpcion = a.idOpcion
+			AND (c.catCotCon = 0 OR c.catCotCon = a.tipo)
+			AND a.idOpcion = c.idOpcion
+			LEFT JOIN zz_glead_inmobiliaria AS e 
+			ON a.idInmobiliaria = e.idInmobiliaria 
+			LEFT JOIN zz_glead_proyectos AS f 
+			ON a.idInmobiliaria = f.idInmobiliaria
+			AND a.proyectos = f.idProyecto
+			LEFT JOIN app_user AS d ON a.idUser = d.idUser
+			WHERE a.idInmobiliaria =".$idInmo."
+			AND a.idProyecto IN (".$idProy.")
+			AND f.estado = 1 
+			".$filtroFecha."
+			AND a.prueba = 0
+			AND a.descarte = 0
+			AND a.cancelada = 0
+			AND b.prueba = 0
+			AND b.descarte = 0
+			AND b.cancelada = 0
+			AND a.fecha >= b.fechaCotizacion 
+			GROUP BY a.idGestionProMaster
+			ORDER BY a.idInmobiliaria ASC
+			LIMIT 6000;
+");
+
+				return $query;
+	}
+
+
 }
 
 
-SELECT
-	a.idGestionProMaster,
-	b.idCategorizar,
-	e.nombre AS Inmobiliaria,
-	concat(d.Nombre, " ", d.Apellido) AS Ejecutivo,
-	date(a.fecha) AS FechaGestion,
-	b.fechacotizacion,
-  -- b.fechaIngreso as horacotizacion,
-	DATEDIFF(a.fecha, b.fechaCotizacion) AS Dif,
-	a.tipo,
-CASE 
-WHEN a.typeAction = 0 THEN 	'Gestiones'
-WHEN a.typeAction = 1 THEN 	'Agenda'
-WHEN a.typeAction = 2 THEN 	'Asignación'
-WHEN a.typeAction = 3 THEN 	'Referencia'
-WHEN a.typeAction = 4 THEN 	'Reserva'
-WHEN a.typeAction = 5 THEN 	'Categorización' ELSE 	'Null' END AS TipoDeAcción,
- c.opcion,
- a.email,
- b.nombre AS Cliente,
- b.rut,
- b.fono,
- a.proyectos AS IdProyectos,
- f.nombreP AS Proyecto,
- b.portal,
- b.dondeviene,
- a.comentario
-FROM 	zz_glead_gestion_pro_master AS a
-LEFT JOIN zz_glead_vendedor_categoriza AS b ON b.idEmail_unico = a.idEmail_unico
-AND a.idInmobilsssiaria = b.idInmobiliaria
-LEFT JOIN zz_glead_gestion_pro_opcion c ON c.idOpcion = a.idOpcion
-AND (c.catCotCon = 0 OR c.catCotCon = a.tipo)
-AND a.idOpcion = c.idOpcion
-LEFT JOIN zz_glead_inmobiliaria AS e ON a.idInmobiliaria = e.idInmobiliaria 
-LEFT JOIN zz_glead_proyectos AS f ON a.idInmobiliaria = f.idInmobiliaria
-AND a.proyectos = f.idProyecto
-LEFT JOIN app_user AS d ON a.idUser = d.idUser
-WHERE a.idInmobiliaria IN (70) 
-AND f.estado = 1 
-AND a.fecha>='2018-01-01'
-AND a.fecha<='2018-01-08'
-and b.fechaCotizacion >='2018-01-01'
-and b.fechaCotizacion <='2018-01-08'
-AND a.prueba = 0
-AND a.descarte = 0
-AND a.cancelada = 0
-AND b.prueba = 0
-AND b.descarte = 0
-AND b.cancelada = 0
-AND a.fecha >= b.fechaCotizacion 
-GROUP BY 	a.idGestionProMaster
-ORDER BY a.idInmobiliaria ASC;
+

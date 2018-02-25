@@ -86,6 +86,11 @@ class Welcome extends CI_Controller {
 			//	echo "***** Descarga de Consultas ***** <br>";
 			descargaConsultas($idInmo,$idProy,$fInicio,$fFinal);
 		break;
+
+		case 5:
+			//	echo "***** Gestiones Cot ***** <br>";
+			descargaGestionesCot($idInmo,$idProy,$fInicio,$fFinal);
+		break;
         
 		default:
 			exit;

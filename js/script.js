@@ -47,7 +47,7 @@ console.log("aqui estan los elementos:"+proyectos);
 
 
  console.log("fin documento");
-$("#cargando").fadeOut(1000);
+$("#cargando").hide();
 });
 
 

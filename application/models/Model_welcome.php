@@ -113,7 +113,7 @@ if($fInicio==$fFinal){
 
 $query=$this->db->query("
 					SELECT 
-					a.idPromesaIn, 
+					a.idPromesaIn, e.nombre as Inmobiliaria,
 					a.idInmobiliaria,a.idUser, concat(d.Nombre,' ',d.Apellido) as ejecutivo, a.email,b.nombre,a.fechaPromesa, 
 					a.fechaGuardado,a.idProyecto, c.nombreP, a.programa,a.donde
 					FROM zz_glead_promesa as a

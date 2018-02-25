@@ -48,6 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<option value="3">Cotizaciones</option>
 		<option value="4">Consultas</option>
 		<option value="5">Gestiones Cot</option>
+		<option value="6">Gestiones Cat</option>
 	</select>
 </div>
 

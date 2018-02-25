@@ -1299,6 +1299,281 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 }
 
 
+function descargaGestionesCat($idInmo,$idProy,$fInicio,$fFinal){
+
+date_default_timezone_set('America/Santiago');
+
+$hoy = date("Y-m-d");   
+
+$CI =& get_instance();
+$CI->load->model('Model_welcome');
+$resultado = $CI->Model_welcome->getGestCat($idInmo,$idProy,$fInicio,$fFinal);
+
+
+  if($resultado->num_rows() > 0 ){
+
+    require_once 'lib/PHPExcel/PHPExcel.php';
+
+    $objPHPExcel = new PHPExcel();
+
+    $objPHPExcel->getProperties()->setCreator("TGA") //Autor
+               ->setLastModifiedBy("TGA") //Ultimo usuario que lo modificó
+               ->setTitle("Reporte Excel Gestiones Cat")
+               ->setSubject("Reporte Excel Gestiones Cat")
+               ->setDescription("Reporte Excel Gestiones Cat")
+               ->setKeywords("Reporte Excel Gestiones Cat")
+               ->setCategory("Reporte Excel Gestiones Cat");
+
+   
+    $titulogleads   = "G-Leads";
+    $tituloReporte4 = $titulogleads." es parte de la familia de servicios de TGA";
+    $tituloReporte5 = "(562) 2233 4658)";
+    $tituloReporte6 = "Alfredo Barros Errazuriz 1900, OF 204";
+    $tituloReporte7 = "Providencia | Santiago";
+    $tituloReporte8 = "Chile";
+
+    $titulosColumnas = array(
+'idGestionProMaster',
+'idRespuesta',
+'Inmobiliaria',
+'tipo',
+'Ejecutivo',
+'TipoDeAccion',
+'idOpcion',
+'opcion',
+'email',
+'Cliente',
+'rut',
+'FechaGestion',
+'Fechapuntos',
+'Dif',
+'Intervalo',
+'Proyecto',
+'donde',
+'principal',
+'portal',
+'dondeviene',
+'Consulta',
+'programa',
+'comentario'
+);
+    
+$objPHPExcel->setActiveSheetIndex(0)
+
+->setCellValue('F4',  $tituloReporte4)
+->setCellValue('F5',  $tituloReporte5)
+->setCellValue('F6',  $tituloReporte6)
+->setCellValue('F7',  $tituloReporte7)
+->setCellValue('F8',  $tituloReporte8)
+->setCellValue('A13',  $titulosColumnas[0])
+->setCellValue('B13',  $titulosColumnas[1])
+->setCellValue('C13',  $titulosColumnas[2])
+->setCellValue('D13',  $titulosColumnas[3])
+->setCellValue('E13',  $titulosColumnas[4])
+->setCellValue('F13',  $titulosColumnas[5])
+->setCellValue('G13',  $titulosColumnas[6]) 
+->setCellValue('H13',  $titulosColumnas[7])    
+->setCellValue('I13',  $titulosColumnas[8])  
+->setCellValue('J13',  $titulosColumnas[9])  
+->setCellValue('K13',  $titulosColumnas[10])
+->setCellValue('L13',  $titulosColumnas[11])  
+->setCellValue('M13',  $titulosColumnas[12])  
+->setCellValue('N13',  $titulosColumnas[13])  
+->setCellValue('O13',  $titulosColumnas[14])  
+->setCellValue('P13',  $titulosColumnas[15])  
+->setCellValue('Q13',  $titulosColumnas[16])  
+->setCellValue('R13',  $titulosColumnas[17])  
+->setCellValue('S13',  $titulosColumnas[18])  
+->setCellValue('T13',  $titulosColumnas[19])  
+->setCellValue('U13',  $titulosColumnas[20]) 
+->setCellValue('V13',  $titulosColumnas[21])                  
+->setCellValue('W13',  $titulosColumnas[22]);
+           
+    
+    //Se agregan los datos al reporte
+    $i = 14;
+
+    foreach ($resultado->result() as $row)
+{
+
+     $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('A'.$i,  $row->idGestionProMaster)
+        ->setCellValue('B'.$i,  $row->idRespuesta)
+        ->setCellValue('C'.$i,  $row->Inmobiliaria)
+        ->setCellValue('D'.$i,  $row->tipo)
+        ->setCellValue('E'.$i,  $row->Ejecutivo)
+        ->setCellValue('F'.$i,  $row->TipoDeAccion)
+        ->setCellValue('G'.$i,  $row->idOpcion)
+        ->setCellValue('H'.$i,  $row->opcion)
+        ->setCellValue('I'.$i,  $row->email)
+        ->setCellValue('J'.$i,  $row->Cliente)
+        ->setCellValue('K'.$i,  $row->rut)
+        ->setCellValue('L'.$i,  $row->FechaGestion)
+        ->setCellValue('M'.$i,  $row->Fechapuntos)
+        ->setCellValue('N'.$i,  $row->Dif)
+        ->setCellValue('O'.$i,  $row->Intervalo)
+        ->setCellValue('P'.$i,  $row->Proyecto)
+        ->setCellValue('Q'.$i,  $row->donde)
+        ->setCellValue('R'.$i,  $row->principal)
+        ->setCellValue('S'.$i,  $row->portal)
+        ->setCellValue('T'.$i,  $row->dondeviene)
+        ->setCellValue('U'.$i,  $row->Consulta)
+        ->setCellValue('V'.$i,  $row->programa)
+        ->setCellValue('W'.$i,  $row->comentario);
+     $i++;   
+}
+$inmobiliaria=$row->Inmobiliaria;
+
+  $estiloTituloReporte = array(
+          'font' => array(
+            'name'      => 'Verdana',
+              'bold'      => true,
+              'italic'    => false,
+                'strike'    => false,
+                'size'      => 11,
+              'color'     => array(
+              'rgb'       => '000000'
+                  )
+            ),
+          'fill' => array(
+        'type'  => PHPExcel_Style_Fill::FILL_SOLID,
+       'color' => array('rgb' => 'FFFFFF')
+      ),
+            'borders' => array(
+                'allborders' => array(
+                  'style' => PHPExcel_Style_Border::BORDER_NONE                    
+                )
+            ), 
+            'alignment' =>  array(
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+              'vertical'   => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+              'rotation'   => 0,
+              'wrap'          => TRUE
+        )
+        );
+
+    $estiloTituloColumnas = array(
+            'font' => array(
+                'name'      => 'Calibri',
+                'bold'      => true,                          
+                'color'     => array(
+                    'rgb' => '000000'
+                )
+        ),
+          'alignment' =>  array(
+          'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+          'vertical'   => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+          'rotation'   => 0,
+          'wrap'          => TRUE
+          ),
+  'borders' => array(
+    'allborders' => array(
+      'style' => PHPExcel_Style_Border::BORDER_THIN
+    )
+  )
+        );
+
+
+        $estiloTitulogleads = array(
+            'font' => array(
+                'name'      => 'Calibri',
+                'bold'      => true,                          
+                'color'     => array(
+                    'rgb' => '990000'
+                )
+        ));
+
+          $titulogleadsNegritas = array(
+            'font' => array(
+                'name'      => 'Calibri',
+                'bold'      => true,                          
+                'color'     => array(
+                    'rgb' => '000000'
+                ),
+                'alignment' =>  array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical'   => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+                'rotation'   => 0,
+                'wrap'          => TRUE
+                )
+        ));
+
+          $titulogleads = array(
+            'font' => array(
+                'name'      => 'Calibri',  
+                 'bold'      => false,                                  
+                'color'     => array(
+                    'rgb' => '000000'
+                ),
+                'alignment' =>  array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical'   => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+                'rotation'   => 0,
+                'wrap'          => TRUE
+                )
+        ));
+
+        $todoContenido = array(
+            'font' => array(
+                'name'      => 'Calibri',  
+                 'bold'      => false,                                  
+                'color'     => array(
+                    'rgb' => '000000'
+                )
+    ),   
+              'borders' => array(
+              'allborders' => array(
+              'style' => PHPExcel_Style_Border::BORDER_THIN
+  )
+        ));
+      
+
+    $objPHPExcel->getActiveSheet()
+    ->getStyle('A1:W12')->applyFromArray($estiloTituloReporte);
+    $objPHPExcel->getActiveSheet()
+    ->getStyle('A13:W13')->applyFromArray($estiloTituloColumnas);  
+    $objPHPExcel->getActiveSheet()
+    ->getStyle('F5:F8')->applyFromArray($titulogleads);  
+      $objPHPExcel->getActiveSheet()
+    ->getStyle('F4')->applyFromArray($titulogleadsNegritas);    
+
+     $objPHPExcel->getActiveSheet()
+    ->getStyle('A14:W'.--$i.'')->applyFromArray($todoContenido);   
+
+
+//imagen
+
+$objDrawing = new PHPExcel_Worksheet_Drawing();
+$objDrawing->setName('imgNotice');
+$objDrawing->setDescription('Noticia');
+$img = 'img/G-Leads.png'; // Provide path to your logo file
+$objDrawing->setPath($img);
+$objDrawing->setCoordinates('C3');
+$objDrawing->setHeight(55); // logo height
+$objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        
+    for($i = 'A'; $i <= 'S'; $i++){
+      $objPHPExcel->setActiveSheetIndex(0)      
+        ->getColumnDimension($i)->setAutoSize(TRUE);
+    }
+    
+    $objPHPExcel->getActiveSheet()->setTitle('Gestiones Cot');
+    $objPHPExcel->setActiveSheetIndex(0);
+
+  header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+  header('Content-Disposition: attachment;filename="gestionesCat_'.$inmobiliaria.'_'.$fInicio.'_'.$fFinal.'.xls"');
+  header('Cache-Control: max-age=0');
+
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save('php://output');
+    exit;
+    
+  }else{
+    print_r('No hay resultados para mostrar');
+  }
+}
+
+
 
 
 

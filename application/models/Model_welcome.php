@@ -171,41 +171,6 @@ $query=$this->db->query("
 							return $query;
 	}
 
-		public function getPromesas($idInmo,$idProy,$fInicio,$fFinal){
-
-if($fInicio==$fFinal){
-			$filtroFecha=' AND a.fechaGuardado like "'.$fInicio.'%" ';
-		}else{
-			$filtroFecha=' AND a.fechaGuardado >="'.$fInicio.'" AND a.fechaGuardado <="'.$fFinal.'" ';
-		}
-
-$query=$this->db->query("
-					SELECT 
-					a.idPromesaIn, e.nombre as Inmobiliaria,
-					a.idInmobiliaria,a.idUser, concat(d.Nombre,' ',d.Apellido) as ejecutivo, a.email,b.nombre,a.fechaPromesa, 
-					a.fechaGuardado,a.idProyecto, c.nombreP, a.programa,a.donde
-					FROM zz_glead_promesa as a
-					left join zz_glead_vendedor_categoriza b on a.email=b.email
-					LEFT JOIN zz_glead_proyectos c on a.idProyecto=c.idProyecto
-					LEFT JOIN zz_glead_inmobiliaria e on a.idInmobiliaria=e.idInmobiliaria
-					AND a.idInmobiliaria=c.idInmobiliaria
-					LEFT JOIN app_user d on a.idUser=d.idUser
-					AND a.idInmobiliaria=d.idempresa
-					WHERE a.idInmobiliaria =".$idInmo."
-					AND a.idProyecto IN (".$idProy.")
-					AND c.estado=1
-					".$filtroFecha."
-					AND a.cancelada = 0
-					AND a.prueba=0
-					AND a.descarte=0
-					GROUP BY idPromesaIn
-					ORDER BY a.fechaPromesa ASC
-					LIMIT 6000
-					");
-
-								return $query;
-	}
-
 		public function getConsultas($idInmo,$idProy,$fInicio,$fFinal){
 
 if($fInicio==$fFinal){

@@ -10,13 +10,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <style>
-	.btnEnviar{
+
+	#fondo_carga{
+		background-color: gray;
+		opacity: 0.5;
+		width:100%;
+		height:1000px;
+		position: absolute;
+		margin-left:auto;
+		margin-right:auto;
+		left:0;
+		right:0;
+		top:0;
+		z-index: 990;
+	}
+
+	#icono_carga{
+		background:url(img/25.gif) no-repeat center center;
+		position: absolute;
+		width:500px;
+		height:500px;
+		margin-left:auto;
+		margin-right:auto;
+		left:0;
+		right:0;
+		z-index: 999;
+	}
+
+		.btnEnviar{
 	padding-top: 20px;
-	}	
+	}
+
+
 </style>
 
 </head>
+
 <body>
+<div id="cargando">
+	<div id="fondo_carga"></div>
+	<div id="icono_carga"></div>
+</div>
+
 <h1 class="text-center">Descarga</h1>
 <div class="container">
 	<div class="row">

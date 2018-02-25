@@ -1,5 +1,7 @@
 $(document).ready(function(){
+
 console.log("documento js cargado");
+
 
 $.post("http://localhost/bases/Welcome/getInmobiliariaController",
 	{
@@ -9,12 +11,13 @@ var c = JSON.parse(data);
 $.each(c,function(i,item){
 	$('#cboInmobiliarias').append('<option value='+item.idInmobiliaria+'>'+item.nombre+'</option>');
 });
-});
+})
 
 
 
 $('#cboInmobiliarias').change(function(){
 
+$("#cargando").show();
 var proyectos = [];
 	
 $('#cboInmobiliarias option:selected').each(function(){
@@ -34,14 +37,17 @@ $.each(c,function(i,item){
 });
 $('#cboProyectos').append('<option value='+proyectos+'>Todos</option>');
 console.log("aqui estan los elementos:"+proyectos);
-});
+}).always(function() {
+   $("#cargando").hide();
+  });
 
 
 
 });
 
 
-
+ console.log("fin documento");
+$("#cargando").fadeOut(1000);
 });
 
 

@@ -1,0 +1,31 @@
+-- consultas
+SELECT  
+a.idConsultas,
+a.idInmobiliaria,
+d.nombreMin as Inmobiliaria,
+date(a.fecha) as FechaConsulta, 
+b.NombreM as Proyecto, 
+a.nombre as Cliente, 
+a.email,
+a.fono, 
+a.rut, -- e.rut as rutV2 ,
+a.donde, 
+a.estado, 
+a.mensaje
+FROM zz_glead_vendedor_consulta as a
+LEFT JOIN zz_glead_proyectos as b on a.idProyecto=b.idProyecto
+LEFT JOIN app_user as c on a.idUser=c.idUser
+LEFT JOIN zz_glead_inmobiliaria as d  on a.idInmobiliaria=d.idInmobiliaria
+LEFT JOIN zz_glead_datos_personas as e on a.email=e.mail AND ((e.idInmobiliaria = a.idInmobiliaria OR e.fechaIngreso = (SELECT MAX(z.fechaIngreso) 
+																																								FROM zz_glead_datos_personas z
+																																								WHERE z.mail=a.email)) OR e.idInmobiliaria = 0)
+WHERE a.idInmobiliaria=96
+and a.email not LIKE '%prueba%'
+AND a.prueba=0
+AND a.cancelada=0
+AND a.descarte=0
+AND a.fecha>='2018-01-08'
+AND a.fecha<='2018-01-14'
+GROUP BY a.idConsultas
+ORDER BY a.fecha ASC
+-- AND year(fecha)=2016;

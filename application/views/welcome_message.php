@@ -14,6 +14,11 @@
 </head>
 
 <body>
+
+	<?php
+
+?>
+
 <div id="cargando">
 	<div id="fondo_carga"></div>
 	<div id="icono_carga"></div>
@@ -50,6 +55,10 @@
 		<option value="3">Cotizaciones</option>
 		<option value="4">Consultas</option>
 		<option value="5">Gestiones Cot</option>
+		<option value="6">Gestiones Cat</option>
+		<option value="7">decir hola</option>
+
+
 		<option value="6">Gestiones Cat</option>
 	</select>
 </div>

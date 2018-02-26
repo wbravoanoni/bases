@@ -10,6 +10,7 @@ class Welcome extends CI_Controller {
 	parent::__construct();
 	$this->load->model('Model_welcome');
 	$this->load->helper('guarda_excel_helper');
+	$this->load->library('Descarga');
 }
 
 	/**
@@ -69,7 +70,11 @@ class Welcome extends CI_Controller {
 				$data["fIni"]   = $fInicio;
 				$data["fTer"]   = $fFinal;
 
+		$a = new Descarga(); 
+		
 	switch ($tipo) {
+
+
 		case 1:
 	//echo "***** Descarga de categorizados ***** <br>";
 			descargaCategorizados($idInmo,$idProy,$fInicio,$fFinal);
@@ -98,6 +103,12 @@ class Welcome extends CI_Controller {
 			//	echo "***** Gestiones Cat ***** <br>";
 			descargaGestionesCat($idInmo,$idProy,$fInicio,$fFinal);
 		break;
+
+		case 7:
+			
+
+			$a->descargaConsultas($idInmo,$idProy,$fInicio,$fFinal);
+		break;
         
 		default:
 			exit;
@@ -113,6 +124,8 @@ class Welcome extends CI_Controller {
 		}
 	
 	}
+
+
 
 	public function prueba(){
 

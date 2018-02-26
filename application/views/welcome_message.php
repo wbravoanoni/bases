@@ -57,9 +57,6 @@
 		<option value="5">Gestiones Cot</option>
 		<option value="6">Gestiones Cat</option>
 		<option value="7">decir hola</option>
-
-
-		<option value="6">Gestiones Cat</option>
 	</select>
 </div>
 

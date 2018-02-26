@@ -77,7 +77,7 @@ class Welcome extends CI_Controller {
 
 		case 1:
 	//echo "***** Descarga de categorizados ***** <br>";
-			descargaCategorizados($idInmo,$idProy,$fInicio,$fFinal);
+			$a->descargaCategorizados($idInmo,$idProy,$fInicio,$fFinal);
 				break;
 		case 2:
         //	echo "***** Descarga de Promesas ***** <br>";
@@ -91,7 +91,7 @@ class Welcome extends CI_Controller {
 
 		case 4:
 			//	echo "***** Descarga de Consultas ***** <br>";
-			descargaConsultas($idInmo,$idProy,$fInicio,$fFinal);
+			$a->descargaConsultas($idInmo,$idProy,$fInicio,$fFinal);
 		break;
 
 		case 5:
@@ -107,7 +107,7 @@ class Welcome extends CI_Controller {
 		case 7:
 			
 
-			$a->descargaConsultas($idInmo,$idProy,$fInicio,$fFinal);
+			
 		break;
         
 		default:

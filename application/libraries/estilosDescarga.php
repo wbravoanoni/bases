@@ -1,15 +1,5 @@
 <?php
  $estiloTituloReporte = array(
-          'font' => array(
-            'name'      => 'Verdana',
-              'bold'      => true,
-              'italic'    => false,
-                'strike'    => false,
-                'size'      => 11,
-              'color'     => array(
-              'rgb'       => '000000'
-                  )
-            ),
           'fill' => array(
         'type'  => PHPExcel_Style_Fill::FILL_SOLID,
        'color' => array('rgb' => 'FFFFFF')

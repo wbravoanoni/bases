@@ -341,6 +341,7 @@ $resultado = $CI->Model_welcome->getPromesas($idInmo,$idProy,$fInicio,$fFinal);
 'ejecutivo',
 'email',
 'nombre',
+'rut',
 'fechaPromesa',
 'fechaGuardado',
 'idProyecto',
@@ -366,8 +367,9 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('H13',  $titulosColumnas[7])    
 ->setCellValue('I13',  $titulosColumnas[8])  
 ->setCellValue('J13',  $titulosColumnas[9])  
-->setCellValue('K13',  $titulosColumnas[10])                
-->setCellValue('L13',  $titulosColumnas[11]);
+->setCellValue('K13',  $titulosColumnas[10])    
+->setCellValue('L13',  $titulosColumnas[11])               
+->setCellValue('M13',  $titulosColumnas[12]);
            
     //Se agregan los datos al reporte
     $i = 14;
@@ -382,12 +384,13 @@ $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('D'.$i,  $row->ejecutivo)
         ->setCellValue('E'.$i,  $row->email)
         ->setCellValue('F'.$i,  $row->nombre)
-        ->setCellValue('G'.$i,  $row->fechaPromesa)
-        ->setCellValue('H'.$i,  $row->fechaGuardado)
-        ->setCellValue('I'.$i,  $row->idProyecto)
-        ->setCellValue('J'.$i,  $row->nombreP)
-        ->setCellValue('K'.$i,  $row->programa)
-        ->setCellValue('L'.$i,  $row->donde);
+        ->setCellValue('G'.$i,  $row->rut)
+        ->setCellValue('H'.$i,  $row->fechaPromesa)
+        ->setCellValue('I'.$i,  $row->fechaGuardado)
+        ->setCellValue('J'.$i,  $row->idProyecto)
+        ->setCellValue('K'.$i,  $row->nombreP)
+        ->setCellValue('L'.$i,  $row->programa)
+        ->setCellValue('M'.$i,  $row->donde);
      $i++;   
 }
 
@@ -498,16 +501,16 @@ $inmobiliaria=$row->Inmobiliaria;
       
 
     $objPHPExcel->getActiveSheet()
-    ->getStyle('A1:L12')->applyFromArray($estiloTituloReporte);
+    ->getStyle('A1:M12')->applyFromArray($estiloTituloReporte);
     $objPHPExcel->getActiveSheet()
-    ->getStyle('A13:L13')->applyFromArray($estiloTituloColumnas);  
+    ->getStyle('A13:M13')->applyFromArray($estiloTituloColumnas);  
     $objPHPExcel->getActiveSheet()
     ->getStyle('F5:F8')->applyFromArray($titulogleads);  
       $objPHPExcel->getActiveSheet()
     ->getStyle('F4')->applyFromArray($titulogleadsNegritas);    
 
      $objPHPExcel->getActiveSheet()
-    ->getStyle('A14:L'.--$i.'')->applyFromArray($todoContenido);   
+    ->getStyle('A14:M'.--$i.'')->applyFromArray($todoContenido);   
 
     //imagen
 
@@ -521,7 +524,7 @@ $inmobiliaria=$row->Inmobiliaria;
     $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
         
-    for($i = 'A'; $i <= 'L'; $i++){
+    for($i = 'A'; $i <= 'M'; $i++){
       $objPHPExcel->setActiveSheetIndex(0)      
         ->getColumnDimension($i)->setAutoSize(TRUE);
     }

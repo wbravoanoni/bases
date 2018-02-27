@@ -111,11 +111,16 @@ if($fInicio==$fFinal){
 			$filtroFecha=' AND a.fechaGuardado >="'.$fInicio.'" AND a.fechaGuardado <="'.$fFinal.'" ';
 		}
 
+
+
+
 $query=$this->db->query("
 					SELECT 
 					a.idPromesaIn, e.nombre as Inmobiliaria,
-					a.idInmobiliaria,a.idUser, concat(d.Nombre,' ',d.Apellido) as ejecutivo, a.email,b.nombre,a.fechaPromesa, 
-					a.fechaGuardado,a.idProyecto, c.nombreP, a.programa,a.donde
+					a.idInmobiliaria,a.idUser, concat(d.Nombre,' ',d.Apellido) as ejecutivo, a.email,b.nombre,
+					b.rut,DATE_FORMAT(a.fechaPromesa,'%d-%m-%Y %k:%i:%s') as fechaPromesa,
+					DATE_FORMAT(fechaGuardado,'%d-%m-%Y %k:%i:%s') as fechaGuardado ,
+					a.idProyecto,c.nombreP, a.programa,a.donde
 					FROM zz_glead_promesa as a
 					left join zz_glead_vendedor_categoriza b on a.email=b.email
 					LEFT JOIN zz_glead_proyectos c on a.idProyecto=c.idProyecto

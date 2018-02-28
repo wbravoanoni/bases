@@ -118,7 +118,7 @@ $query=$this->db->query("
 					SELECT 
 					a.idPromesaIn, e.nombre as Inmobiliaria,
 					a.idInmobiliaria,a.idUser, concat(d.Nombre,' ',d.Apellido) as ejecutivo, a.email,b.nombre,
-					b.rut,DATE_FORMAT(a.fechaPromesa,'%d-%m-%Y %k:%i:%s') as fechaPromesa,
+					b.rut,DATE_FORMAT(a.fechaPromesa,'%d-%m-%Y') as fechaPromesa,
 					DATE_FORMAT(fechaGuardado,'%d-%m-%Y %k:%i:%s') as fechaGuardado ,
 					a.idProyecto,c.nombreP, a.programa,a.donde
 					FROM zz_glead_promesa as a
@@ -152,7 +152,7 @@ if($fInicio==$fFinal){
 		}
 
 $query=$this->db->query("
-					SELECT a.idCategorizar, c.nombre as Inmobiliaria, a.idProyecto, b.nombreP as Proyecto, DATE_FORMAT(a.fechaCotizacion,'%d-%m-%Y %k:%i:%s') AS FechaCotizacion,
+					SELECT a.idCategorizar, c.nombre as Inmobiliaria, a.idProyecto, b.nombreP as Proyecto, DATE_FORMAT(a.fechaCotizacion,'%d-%m-%Y') AS FechaCotizacion,
 					a.nombre as Cliente, a.rut, a.email, a.fono, a.idPortal, a.portal,a.dondeviene, a.programa,a.comentario
 					from zz_glead_vendedor_categoriza AS a
 					LEFT JOIN zz_glead_proyectos as b on a.idProyecto=b.idProyecto 
@@ -234,8 +234,8 @@ $query=$this->db->query("
 			a.idGestionProMaster,b.idCategorizar,
 			e.nombre AS Inmobiliaria,
 			concat(d.Nombre, ' ', d.Apellido) AS Ejecutivo,
-			DATE_FORMAT(a.fecha,'%d-%m-%Y %k:%i:%s') AS FechaGestion,
-			DATE_FORMAT(b.fechacotizacion,'%d-%m-%Y %k:%i:%s') AS fechacotizacion,
+			DATE_FORMAT(a.fecha,'%d-%m-%Y') AS FechaGestion,
+			DATE_FORMAT(b.fechacotizacion,'%d-%m-%Y') AS fechacotizacion,
 			DATEDIFF(a.fecha, b.fechaCotizacion) AS Dif,a.tipo,
 			CASE
 			WHEN a.typeAction = 0 THEN 	'Gestiones'

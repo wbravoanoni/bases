@@ -482,7 +482,7 @@ $this->objPHPExcel->getActiveSheet()->getStyle('A14:W'.--$i.'')->applyFromArray(
 function descargaGestionesCot($idInmo,$idProy,$fInicio,$fFinal){
 
 
-$resultado = $this->CI->Model_welcome->getGestCat($idInmo,$idProy,$fInicio,$fFinal);
+$resultado = $this->CI->Model_welcome->getGestCot($idInmo,$idProy,$fInicio,$fFinal);
 
 
   if($resultado->num_rows() > 0 ){

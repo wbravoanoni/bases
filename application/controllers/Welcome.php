@@ -81,7 +81,7 @@ class Welcome extends CI_Controller {
 				break;
 		case 2:
         //	echo "***** Descarga de Promesas ***** <br>";
-        	$a->descargaPromesa($idInmo,$idProy,$fInicio,$fFinal);
+        	$a->descargaPromesas($idInmo,$idProy,$fInicio,$fFinal);
         		break;
         
         case 3:
@@ -104,7 +104,7 @@ class Welcome extends CI_Controller {
 			$a->descargaGestionesCat($idInmo,$idProy,$fInicio,$fFinal);
 		break;
         
-        
+
 		default:
 			exit;
 				break;

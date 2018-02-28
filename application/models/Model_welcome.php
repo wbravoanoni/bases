@@ -65,7 +65,7 @@ class Model_welcome extends CI_Model {
 $query=$this->db->query('
 
 						SELECT a.idRepuesta,d.nombre,b.nombreP as Proyecto,d.nombre as Inmobiliaria,
-						date(a.fechaPuntos) as FechaPuntos, 
+						DATE_FORMAT(a.fechaPuntos,"%d-%m-%Y %k:%i:%s") AS FechaPuntos, 
 						CASE
 						when a.Puntos BETWEEN 0 AND 25 then "0% - 25%" 
 						when a.Puntos BETWEEN 25.1 AND 35 then "25% - 35%"
@@ -152,7 +152,7 @@ if($fInicio==$fFinal){
 		}
 
 $query=$this->db->query("
-					SELECT a.idCategorizar, c.nombre as Inmobiliaria, a.idProyecto, b.nombreP as Proyecto, a.fechaCotizacion as FechaCotizacion,
+					SELECT a.idCategorizar, c.nombre as Inmobiliaria, a.idProyecto, b.nombreP as Proyecto, DATE_FORMAT(a.fechaCotizacion,'%d-%m-%Y %k:%i:%s') AS FechaCotizacion,
 					a.nombre as Cliente, a.rut, a.email, a.fono, a.idPortal, a.portal,a.dondeviene, a.programa,a.comentario
 					from zz_glead_vendedor_categoriza AS a
 					LEFT JOIN zz_glead_proyectos as b on a.idProyecto=b.idProyecto 
@@ -188,7 +188,8 @@ $query=$this->db->query("
 			SELECT  
 			a.idConsultas,a.idInmobiliaria,
 			d.nombreMin as Inmobiliaria,
-			date(a.fecha) as FechaConsulta, b.NombreM as Proyecto, 
+			DATE_FORMAT(a.fecha,'%d-%m-%Y %k:%i:%s') AS FechaConsulta,
+			 b.NombreM as Proyecto, 
 			a.nombre as Cliente, a.email,a.fono, a.rut, a.donde,
 			 a.estado, a.mensaje
 			FROM zz_glead_vendedor_consulta as a
@@ -233,9 +234,10 @@ $query=$this->db->query("
 			a.idGestionProMaster,b.idCategorizar,
 			e.nombre AS Inmobiliaria,
 			concat(d.Nombre, ' ', d.Apellido) AS Ejecutivo,
-			date(a.fecha) AS FechaGestion,b.fechacotizacion,
+			DATE_FORMAT(a.fecha,'%d-%m-%Y %k:%i:%s') AS FechaGestion,
+			DATE_FORMAT(b.fechacotizacion,'%d-%m-%Y %k:%i:%s') AS fechacotizacion,
 			DATEDIFF(a.fecha, b.fechaCotizacion) AS Dif,a.tipo,
-			CASE 
+			CASE
 			WHEN a.typeAction = 0 THEN 	'Gestiones'
 			WHEN a.typeAction = 1 THEN 	'Agenda'
 			WHEN a.typeAction = 2 THEN 	'Asignación'
@@ -292,6 +294,8 @@ $filtroFecha=' AND a.fecha >="'.$fInicio.'"
 			   AND b.fechaPuntos <="'.$fFinal.'" ';
 		}
 
+
+
 $query=$this->db->query("
 			
 				SELECT 
@@ -309,8 +313,8 @@ $query=$this->db->query("
 				a.idOpcion,c.opcion,a.email,
 				concat(h.nombre, ' ', h.apellido) AS Cliente,
 				h.rut,
-				date(a.fecha) as FechaGestion,
-				date(b.fechaPuntos) as fechapuntos,
+				DATE_FORMAT(a.fecha,'%d-%m-%Y %k:%i:%s') AS FechaGestion,
+				DATE_FORMAT(b.fechaPuntos,'%d-%m-%Y %k:%i:%s') AS fechapuntos,
 				DATEDIFF(a.fecha, b.fechaPuntos) AS Dif,
 				CASE
 				WHEN b.puntos BETWEEN 0 AND 25 THEN	'0% - 25%'

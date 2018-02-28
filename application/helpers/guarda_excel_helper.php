@@ -1,5 +1,35 @@
 <?php
-//defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+require_once 'lib/PHPExcel/PHPExcel.php';
+
+
+  //Se agrega la libreria PHPExcel */
+
+
+    // Se crea el objeto PHPExcel
+    $objPHPExcel = new PHPExcel();
+
+    // Se asignan las propiedades del libro
+    $objPHPExcel->getProperties()->setCreator("TGA") //Autor
+               ->setLastModifiedBy("TGA") //Ultimo usuario que lo modificó
+               ->setTitle("Reporte idInmobiliaria")
+               ->setSubject("Reporte Excel con PHP y MySQL")
+               ->setDescription("Reporte idInmobiliaria")
+               ->setKeywords("Reporte idInmobiliaria")
+               ->setCategory("Reporte idInmobiliaria");
+
+  $objPHPExcel->setActiveSheetIndex(0);
+
+    
+    $titulogleads   = "G-Leads";
+    $tituloReporte4 = $titulogleads." es parte de la familia de servicios de TGA";
+    $tituloReporte5 = "(562) 2233 4658)";
+    $tituloReporte6 = "Alfredo Barros Errazuriz 1900, OF 204";
+    $tituloReporte7 = "Providencia | Santiago";
+    $tituloReporte8 = "Chile";
+
+
 
 function descargaCategorizados($idInmo,$idProy,$fInicio,$fFinal){
 
@@ -14,28 +44,7 @@ $resultado = $CI->Model_welcome->getCatModelFull($idInmo,$idProy,$fInicio,$fFina
 
   if($resultado->num_rows() > 0 ){
 
-  //Se agrega la libreria PHPExcel */
-    require_once 'lib/PHPExcel/PHPExcel.php';
 
-    // Se crea el objeto PHPExcel
-    $objPHPExcel = new PHPExcel();
-
-    // Se asignan las propiedades del libro
-    $objPHPExcel->getProperties()->setCreator("TGA") //Autor
-               ->setLastModifiedBy("TGA") //Ultimo usuario que lo modificó
-               ->setTitle("Reporte idInmobiliaria")
-               ->setSubject("Reporte Excel con PHP y MySQL")
-               ->setDescription("Reporte idInmobiliaria")
-               ->setKeywords("Reporte idInmobiliaria")
-               ->setCategory("Reporte idInmobiliaria");
-
-    
-    $titulogleads   = "G-Leads";
-    $tituloReporte4 = $titulogleads." es parte de la familia de servicios de TGA";
-    $tituloReporte5 = "(562) 2233 4658)";
-    $tituloReporte6 = "Alfredo Barros Errazuriz 1900, OF 204";
-    $tituloReporte7 = "Providencia | Santiago";
-    $tituloReporte8 = "Chile";
 
 
     $titulosColumnas = array(
@@ -54,7 +63,11 @@ $resultado = $CI->Model_welcome->getCatModelFull($idInmo,$idProy,$fInicio,$fFina
 $objPHPExcel->setActiveSheetIndex(0)
 ->mergeCells('A1:D1'); */ 
 // Se agregan los titulos del reporte
-$objPHPExcel->setActiveSheetIndex(0)
+
+
+global $objPHPExcel;
+
+$objPHPExcel
 ->setCellValue('F4',  $tituloReporte4)
 ->setCellValue('F5',  $tituloReporte5)
 ->setCellValue('F6',  $tituloReporte6)

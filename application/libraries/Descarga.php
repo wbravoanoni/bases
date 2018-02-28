@@ -275,7 +275,7 @@ $this->objPHPExcel->getActiveSheet()->getStyle('A14:N'.--$i.'')->applyFromArray(
     $this->objPHPExcel->getActiveSheet()->setTitle('Cotizaciones');
 
   header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-  header('Content-Disposition: attachment;filename="cotizaciones'.$inmobiliaria.'_'.$fInicio.'_'.$fFinal.'.xls"');
+  header('Content-Disposition: attachment;filename="cotizaciones_'.$inmobiliaria.'_'.$fInicio.'_'.$fFinal.'.xls"');
   header('Cache-Control: max-age=0');
 
     $objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, 'Excel5');
@@ -359,7 +359,7 @@ $this->objPHPExcel->getActiveSheet()->getStyle('A14:M'.--$i.'')->applyFromArray(
     $this->objPHPExcel->getActiveSheet()->setTitle('Promesas');
 
   header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-  header('Content-Disposition: attachment;filename="promesas'.$inmobiliaria.'_'.$fInicio.'_'.$fFinal.'.xls"');
+  header('Content-Disposition: attachment;filename="promesas_'.$inmobiliaria.'_'.$fInicio.'_'.$fFinal.'.xls"');
   header('Cache-Control: max-age=0');
 
     $objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, 'Excel5');

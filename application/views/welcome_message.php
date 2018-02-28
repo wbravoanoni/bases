@@ -56,7 +56,6 @@
 		<option value="4">Consultas</option>
 		<option value="5">Gestiones Cot</option>
 		<option value="6">Gestiones Cat</option>
-		<option value="7">decir hola</option>
 	</select>
 </div>
 

@@ -81,12 +81,12 @@ class Welcome extends CI_Controller {
 				break;
 		case 2:
         //	echo "***** Descarga de Promesas ***** <br>";
-        	descargaPromesa($idInmo,$idProy,$fInicio,$fFinal);
+        	$a->descargaPromesa($idInmo,$idProy,$fInicio,$fFinal);
         		break;
         
         case 3:
         	//echo "***** Descarga de Cotizaciones ***** <br>";
-        	descargaCotizaciones($idInmo,$idProy,$fInicio,$fFinal);
+        	$a->descargaCotizaciones($idInmo,$idProy,$fInicio,$fFinal);
         		break;
 
 		case 4:
@@ -96,19 +96,14 @@ class Welcome extends CI_Controller {
 
 		case 5:
 			//	echo "***** Gestiones Cot ***** <br>";
-			descargaGestionesCot($idInmo,$idProy,$fInicio,$fFinal);
+			$a->descargaGestionesCot($idInmo,$idProy,$fInicio,$fFinal);
 		break;
 
 		case 6:
 			//	echo "***** Gestiones Cat ***** <br>";
-			descargaGestionesCat($idInmo,$idProy,$fInicio,$fFinal);
+			$a->descargaGestionesCat($idInmo,$idProy,$fInicio,$fFinal);
 		break;
-
-		case 7:
-			
-
-			
-		break;
+        
         
 		default:
 			exit;

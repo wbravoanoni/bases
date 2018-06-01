@@ -170,7 +170,7 @@ $query=$this->db->query("
 					AND b.idProyecto IS NOT NULL
 					GROUP BY a.idCategorizar
 					ORDER BY a.fechaCotizacion ASC
-					LIMIT 6000");
+					LIMIT 10000");
 
 
 							return $query;

@@ -638,22 +638,22 @@ $objPHPExcel->setActiveSheetIndex(0)
 
     foreach ($resultado->result() as $row)
 {
-
+//utf8_decode()
      $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A'.$i,  $row->idCategorizar)
-        ->setCellValue('B'.$i,  utf8_decode($row->Inmobiliaria))
+        ->setCellValue('B'.$i,  $row->Inmobiliaria)
         ->setCellValue('C'.$i,  $row->idProyecto)
-        ->setCellValue('D'.$i,  utf8_decode($row->Proyecto))
+        ->setCellValue('D'.$i,  $row->Proyecto)
         ->setCellValue('E'.$i,  $row->FechaCotizacion)
-        ->setCellValue('F'.$i,  utf8_decode($row->Cliente))
-        ->setCellValue('G'.$i,  utf8_decode($row->rut))
-        ->setCellValue('H'.$i,  utf8_decode($row->email))
-        ->setCellValue('I'.$i,  utf8_decode($row->fono))
+        ->setCellValue('F'.$i,  $row->Cliente)
+        ->setCellValue('G'.$i,  $row->rut)
+        ->setCellValue('H'.$i,  $row->email)
+        ->setCellValue('I'.$i,  $row->fono)
         ->setCellValue('J'.$i,  $row->idPortal)
         ->setCellValue('K'.$i,  $row->portal)
-        ->setCellValue('L'.$i,  utf8_decode($row->dondeviene))
-        ->setCellValue('M'.$i,  utf8_decode($row->programa))
-        ->setCellValue('N'.$i,  utf8_decode($row->comentario));
+        ->setCellValue('L'.$i,  $row->dondeviene)
+        ->setCellValue('M'.$i,  $row->programa)
+        ->setCellValue('N'.$i,  $row->comentario);
      $i++;   
 }
 $inmobiliaria=$row->Inmobiliaria;

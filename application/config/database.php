@@ -83,11 +83,17 @@ $db['default'] = array(
 	'database' => 'res_gleads',
 */
 
+
+	'hostname' => '64.207.181.186',
+	'username' => 'chamo',
+	'password' => 'r3r8X_t7',
+	'database' => 'gleadsx',
+/*
 	'hostname' => 'localhost',
 	'username' => 'test',
 	'password' => 'winston123456',
 	'database' => 'res_gleads',
-
+*/
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
